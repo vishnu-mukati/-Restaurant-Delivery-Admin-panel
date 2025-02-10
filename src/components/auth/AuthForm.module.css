@@ -1,0 +1,110 @@
+.auth {
+    margin: 3rem auto;
+    width: 95%;
+    max-width: 25rem;
+    border-radius: 10px;
+    background: linear-gradient(145deg, #1e2a78, #263b8e);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    padding: 2rem;
+    text-align: center;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .auth h1 {
+    color: #00d1b2;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+  }
+  
+  .control {
+    margin-bottom: 1rem;
+  }
+  
+  .control label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-align: left;
+    color: #d1d9ff;
+  }
+  
+  .control input {
+    font: inherit;
+    background-color: #ffffff;
+    color: #1e2a78;
+    border-radius: 6px;
+    border: 1px solid #00d1b2;
+    width: 100%;
+    padding: 0.5rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .control input:focus {
+    border-color: #00a99d;
+    box-shadow: 0 0 5px #00d1b2;
+  }
+  
+  .actions {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .actions button {
+    cursor: pointer;
+    font: inherit;
+    color: #ffffff;
+    background-color: #00d1b2;
+    border: none;
+    border-radius: 6px;
+    padding: 0.6rem 2rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+  
+  .actions button:hover {
+    background-color: #00a99d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 209, 178, 0.6);
+  }
+  
+  .actions .toggle {
+    margin-top: 1rem;
+    background-color: transparent;
+    color: #00d1b2;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .actions .toggle:hover {
+    color: #ffffff;
+    text-decoration: underline;
+  }
+  
+  /* Forgot Password link styling */
+  .forgotPassword {
+    color: #00d1b2;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+  }
+  
+  .forgotPassword:hover {
+    color: #ffffff;
+    text-decoration: underline;
+  }
+  
+  .forgotPassword:active {
+    color: #00a99d;
+  }
+  
