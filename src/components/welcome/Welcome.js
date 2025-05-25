@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { authActions } from "../../store/AuthSlice";
 import CategoriesManagemenet from "../categories-management/CategoriesManagement";
 import classes from './Welcome.module.css';
+import Orders from "../page/Orders";
 
 const CreateRecipes = () => {
     const dispatch = useDispatch();
@@ -47,6 +48,11 @@ const CreateRecipes = () => {
                         <CategoriesManagemenet
                             closeCategoriesManagementPage={() => setCurrentPage(false)}
                         />
+                    </div>
+                )}
+                {currentPage === 'updateorderstatus' && (
+                    <div className={classes.panelContent}>
+                        <Orders closeCategoriesManagementPage={() => setCurrentPage(false)}/>
                     </div>
                 )}
             </div>

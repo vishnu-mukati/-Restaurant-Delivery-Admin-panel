@@ -75,23 +75,35 @@ const CategoriesManagemenet = () => {
 
     async function formSubmitHandler(event) {
         event.preventDefault();
-        const imagePreview = image ? URL.createObjectURL(image) : selectedImage;
+        let imageBlob = null;
+
+        if (image) {
+            // Convert the image file to a Blob
+            imageBlob = await new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    const arrayBuffer = reader.result;
+                    resolve(new Blob([arrayBuffer], { type: image.type }));
+                };
+                reader.readAsArrayBuffer(image);
+            });
+        }
 
         const newRecipe = {
             recipeName,
             categoriesSelection,
             ingredients,
             price,
-            image: imagePreview,
+            image: imageBlob ? await blobToBase64(imageBlob) : selectedImage,
         };
         try {
             if (editCategories) {
-                const response =   await axios.put(`https://restaurant-admin-panel-f2680-default-rtdb.firebaseio.com/categoriesdata/${editCategories.id}.json`,newRecipe);
+                const response =   await axios.put(`https://restaurant-admin-panel-fc3cc-default-rtdb.firebaseio.com/categorieslist/${editCategories.id}.json`,newRecipe);
                
                     dispatch(categoriesActions.updateCategories({ id: editCategories.id, ...newRecipe }));
                 
             } else {
-                const response = await axios.post(`https://restaurant-admin-panel-f2680-default-rtdb.firebaseio.com/categoriesdata.json`, newRecipe);
+                const response = await axios.post(`https://restaurant-admin-panel-fc3cc-default-rtdb.firebaseio.com/categorieslist.json`, newRecipe);
                 console.log(response.data);
                 dispatch(categoriesActions.addcategories({ id: response.data.name, ...newRecipe }));
             }
@@ -113,6 +125,14 @@ const CategoriesManagemenet = () => {
         dispatch(categoriesActions.editCategories(null));
     };
 
+    const blobToBase64 = (blob) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+        });
+    };
 
     return (
         <Fragment>

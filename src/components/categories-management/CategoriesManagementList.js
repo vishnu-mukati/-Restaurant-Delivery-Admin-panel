@@ -15,7 +15,7 @@ const CategoriesManagementList = () => {
 
     async function getData() {
         try {
-            const response = await axios.get(`https://restaurant-admin-panel-f2680-default-rtdb.firebaseio.com/categoriesdata.json`)
+            const response = await axios.get(`https://restaurant-admin-panel-fc3cc-default-rtdb.firebaseio.com/categorieslist.json`)
             if (response.data) {
                 for (const key of Object.keys(response.data)) {
                     const categoriesData = {
@@ -48,13 +48,12 @@ const CategoriesManagementList = () => {
 
     async function deleteDataHandler(id) {
         try {
-            const response = await axios.delete(`https://restaurant-admin-panel-f2680-default-rtdb.firebaseio.com/categoriesdata/${id}.json`)
+            const response = await axios.delete(`https://restaurant-admin-panel-fc3cc-default-rtdb.firebaseio.com/categorieslist/${id}.json`)
             dispatch(categoriesActions.deleteCategoriesData({ id }))
         } catch (err) {
             alert(err.message);
         }
     }
-
     return (
         <div className={classes.listContainer}>
             <h3>Recipe List</h3>
@@ -66,7 +65,7 @@ const CategoriesManagementList = () => {
                         <img src={item.image} alt={item.name} />
                         <div className={classes.itemDetails}>
                             <p>{item.name}</p>
-                            <p>Category: {item.category}</p>
+                            <p>Category: {item.recipeName}</p>
                             <p>Price: {item.price}</p>
                         </div>
                         <div className={classes.actionButtons}>

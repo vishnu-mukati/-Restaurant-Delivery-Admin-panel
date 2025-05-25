@@ -17,7 +17,6 @@ const Categories = createSlice({
             if (!exists) {
               state.Categories.push(action.payload);  // Add only if not already present
             }
-      
         },
         deleteCategoriesData(state, action) {
             state.Categories = state.Categories.filter(item => item.id !== action.payload.id);
@@ -25,7 +24,7 @@ const Categories = createSlice({
         editCategories(state, action) {
             state.editCategories = action.payload;
         },
-        updateCategories(state, action) {  // ✅ Added this reducer
+        updateCategories(state, action) { 
             state.Categories = state.Categories.map(item =>
                 item.id === action.payload.id ? { ...item, ...action.payload } : item
             );
