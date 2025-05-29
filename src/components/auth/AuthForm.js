@@ -19,8 +19,7 @@ const AuthForm = () => {
     const enteredPassword = passwordInputRef.current.value;
 
     setIsLoading(true);
-
-    const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCv8pCqmruGXTUnTiTruJFKCynzNmQ46mQ';
+    const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDaNpijGkjW8oR2729Z3IrBcLlZ-n7EaSM';
 
     try {
       const response = await axios.post(url, {

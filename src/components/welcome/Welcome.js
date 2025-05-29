@@ -1,19 +1,24 @@
 import { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/AuthSlice";
-import CategoriesManagemenet from "../categories-management/CategoriesManagement";
+import CategoriesManagemenet from "../Categories-management/CategoriesManagement";
+import RecipesManagemenet from "../Recipes-management/RecipesManagement";
 import classes from './Welcome.module.css';
 import Orders from "../page/Orders";
 
 const CreateRecipes = () => {
     const dispatch = useDispatch();
-    const [currentPage, setCurrentPage] = useState('categories');
+    const [currentPage, setCurrentPage] = useState('recipes');
 
     const logoutHandler = () => {
         dispatch(authActions.logout());
     };
 
-    const toggleCategoriesHandler = (page) => {
+    const toggleCategoriesHandler = (page) =>{
+         setCurrentPage((prevPage) => (prevPage === page ? false : page));
+    }
+
+    const toggleRecipesHandler = (page) => {
         setCurrentPage((prevPage) => (prevPage === page ? false : page));
     };
 
@@ -28,31 +33,46 @@ const CreateRecipes = () => {
                     Log Out
                 </button>
 
+
                 <div className={classes.buttonContainer}>
-                    <button
+                    <button 
                         className={classes.button}
-                        onClick={() => toggleCategoriesHandler('categories')}
+                        onClick={()=> toggleCategoriesHandler('categories')}
                     >
-                        Add Categories & Recipes
+                        Categories
                     </button>
                     <button
                         className={classes.button}
-                        onClick={() => toggleCategoriesHandler('updateorderstatus')}
+                        onClick={() => toggleRecipesHandler('recipes')}
                     >
-                        Update Order Status
+                        Recipes
+                    </button>
+                    <button
+                        className={classes.button}
+                        onClick={() => toggleRecipesHandler('updateorderstatus')}
+                    >
+                         Orders
                     </button>
                 </div>
 
                 {currentPage === 'categories' && (
                     <div className={classes.panelContent}>
                         <CategoriesManagemenet
-                            closeCategoriesManagementPage={() => setCurrentPage(false)}
+                            closeRecipesManagementPage={() => setCurrentPage(false)}
+                        />
+                    </div>
+                )}
+
+                {currentPage === 'recipes' && (
+                    <div className={classes.panelContent}>
+                        <RecipesManagemenet
+                            closeRecipesManagementPage={() => setCurrentPage(false)}
                         />
                     </div>
                 )}
                 {currentPage === 'updateorderstatus' && (
                     <div className={classes.panelContent}>
-                        <Orders closeCategoriesManagementPage={() => setCurrentPage(false)}/>
+                        <Orders closeRecipesManagementPage={() => setCurrentPage(false)}/>
                     </div>
                 )}
             </div>

@@ -1,21 +1,22 @@
-import { Fragment, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Fragment, useState, useEffect } from "react";
+import classes from "./CategoriesManagement.module.css";
+import {useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import classes from './CategoriesManagement.module.css';
-import CategoriesManagemenetList from "./CategoriesManagementList";
-import { categoriesActions } from "../../store/CategoriesSlice";
+import  CategoriesManagementList  from "./CategoriesManagementList";
+import { CategoriesActions } from "../../store/CategoriesSlice";
 
-const CategoriesManagemenet = () => {
+
+const CategoriesManagement = () => {
     const dispatch = useDispatch();
+    const [categorieName, setCategorieName] = useState("");
     const [selectedImage, setSelectedImage] = useState(null);
     const [showForm, setShowForm] = useState(false);
-    const [recipeName, setRecipeName] = useState("");
-    const [categoriesSelection, setcategoriesSelection] = useState("");
-    const [ingredients, setIngredients] = useState("");
-    const [price, setPrice] = useState("");
     const [image, setImage] = useState("");
-    const editCategories = useSelector(state => state.categories.editCategories);
+    const editCategories = useSelector(state => state.Categories.editCategories);
 
+    const toggleFormHandler = () => {
+        setShowForm(true);
+    }
 
     const imageChangeHandler = (event) => {
         const file = event.target.files[0];
@@ -23,37 +24,11 @@ const CategoriesManagemenet = () => {
             setSelectedImage(URL.createObjectURL(file));
         }
         setImage(file);
-    };
+    }
 
-    const toggleFormHandler = () => {
-        setShowForm(true);
-    };
-
-    // useEffect(()=>{
-    //      if(editCategories){
-    //         editCategoriesHandler();
-    //      }
-    // },[editCategories])
-
-    // async function editCategoriesHandler() {
-    //     const categoriesToEdit = editCategories;  // No need to access `.item` since it's stored directly
-    //     if (categoriesToEdit) {
-    //         setRecipeName(categoriesToEdit.recipeName);
-    //         setcategoriesSelection(categoriesToEdit.categoriesSelection);
-    //         setIngredients(categoriesToEdit.ingredients);
-    //         setPrice(categoriesToEdit.price);
-    //         setSelectedImage(categoriesToEdit.image); // For preview
-    //         setImage(null);
-    //     }
-    //     setShowForm(true); 
-    // };
-
-    useEffect(() => {
+     useEffect(() => {
         if (editCategories) {
-            setRecipeName(editCategories.recipeName);
-            setcategoriesSelection(editCategories.categoriesSelection);
-            setIngredients(editCategories.ingredients);
-            setPrice(editCategories.price);
+            setCategorieName(editCategories.categorieName);
             setSelectedImage(editCategories.image); // For preview
             setImage(null);
             setShowForm(true); // Open the form when editing
@@ -62,18 +37,18 @@ const CategoriesManagemenet = () => {
     
 
     const cancleCategoriesDataHandler = () => {
-        dispatch(categoriesActions.editCategories(null));
-        setRecipeName("");
-        setcategoriesSelection("");
-        setIngredients("");
-        setPrice("");
-        setImage("");
-        setSelectedImage(null);
-        setShowForm(false);
+            dispatch(CategoriesActions.editCategories(null));
+                  setCategorieName("");
+                  setImage("");
+                  setSelectedImage(null);
+                  setShowForm(false);
     }
 
+    
 
-    async function formSubmitHandler(event) {
+
+
+    async function formSubmitHandler  (event) {
         event.preventDefault();
         let imageBlob = null;
 
@@ -89,23 +64,21 @@ const CategoriesManagemenet = () => {
             });
         }
 
-        const newRecipe = {
-            recipeName,
-            categoriesSelection,
-            ingredients,
-            price,
+         const newCetogories = { 
+           categorieName,
             image: imageBlob ? await blobToBase64(imageBlob) : selectedImage,
         };
-        try {
+
+         try {
             if (editCategories) {
-                const response =   await axios.put(`https://restaurant-admin-panel-fc3cc-default-rtdb.firebaseio.com/categorieslist/${editCategories.id}.json`,newRecipe);
+                const response =   await axios.put(`https://restaurant-admin-panel-7f6af-default-rtdb.firebaseio.com/Categorieslist/${editCategories.id}.json`,newCetogories);
                
-                    dispatch(categoriesActions.updateCategories({ id: editCategories.id, ...newRecipe }));
+                    dispatch(CategoriesActions.updateCategories({ id: editCategories.id, ...newCetogories }));
                 
             } else {
-                const response = await axios.post(`https://restaurant-admin-panel-fc3cc-default-rtdb.firebaseio.com/categorieslist.json`, newRecipe);
+                const response = await axios.post(`https://restaurant-admin-panel-7f6af-default-rtdb.firebaseio.com/Categorieslist.json`, newCetogories);
                 console.log(response.data);
-                dispatch(categoriesActions.addcategories({ id: response.data.name, ...newRecipe }));
+                dispatch(CategoriesActions.addCategories({ id: response.data.name, ...newCetogories }));
             }
             setShowForm(false);
 
@@ -115,17 +88,15 @@ const CategoriesManagemenet = () => {
 
 
         // Clear form fields after submission
-        setRecipeName("");
-        setcategoriesSelection("");
-        setIngredients("");
-        setPrice("");
+        setCategorieName("");
         setImage("");
         setSelectedImage(null);
         setShowForm(false);
-        dispatch(categoriesActions.editCategories(null));
+        dispatch(CategoriesActions.editCategories(null));
+
     };
 
-    const blobToBase64 = (blob) => {
+         const blobToBase64 = (blob) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onloadend = () => resolve(reader.result);
@@ -134,71 +105,40 @@ const CategoriesManagemenet = () => {
         });
     };
 
+    
+
     return (
         <Fragment>
             <div className={classes.formContainer}>
-                <h2>Recipe Management</h2>
+                <h2>Categories Management</h2>
                 {showForm ? (
                     <form onSubmit={formSubmitHandler}>
                         <div className={classes.formGroup}>
-                            <label htmlFor="recipe-name">Recipe Name:</label>
+                            <label htmlFor="name">Category Name : </label>
                             <input
                                 type="text"
-                                id="recipe-name"
-                                value={recipeName}
-                                onChange={(e) => setRecipeName(e.target.value)}
+                                placeholder="Enter Category"
+                                value={categorieName}
+                                onChange={(e) => setCategorieName(e.target.value)}
                                 required
                             />
                         </div>
                         <div className={classes.formGroup}>
-                            <label htmlFor="categoryselection">Category Selection:</label>
-                            <select
-                                id="categoryselection"
-                                value={categoriesSelection}
-                                onChange={(e) => setcategoriesSelection(e.target.value)}
-                                required
-                            >
-                                <option value="Appetizers">Appetizers</option>
-                                <option value="Main Courses">Main Courses</option>
-                                <option value="Desserts">Desserts</option>
-                            </select>
-                        </div>
-                        <div className={classes.formGroup}>
-                            <label htmlFor="ingredients">Ingredients:</label>
-                            <input
-                                type="text"
-                                id="ingredients"
-                                value={ingredients}
-                                onChange={(e) => setIngredients(e.target.value)}
-                                required
-                            />
-                        </div>
-                        <div className={classes.formGroup}>
-                            <label htmlFor="price">Price:</label>
-                            <input
-                                type="text"
-                                id="price"
-                                value={price}
-                                onChange={(e) => setPrice(e.target.value)}
-                                required
-                            />
-                        </div>
-                        <div className={classes.formGroup}>
-                            <label htmlFor="recipe-image">Upload Recipe Image:</label>
+                            <label htmlFor="recipe-image">Upload Categories Image:</label>
                             <input
                                 type="file"
                                 id="recipe-image"
                                 accept="image/*"
-                                // value={image}
                                 className={classes.fileInput}
                                 onChange={imageChangeHandler}
                                 required={!editCategories}
                             />
                         </div>
+
                         {selectedImage && (
                             <div className={classes.imagePreview}>
                                 <p>Image Preview:</p>
-                                <img src={selectedImage} alt="Recipe Preview" />
+                                <img src={selectedImage} alt="Categories Preview" />
                             </div>
                         )}
 
@@ -208,14 +148,19 @@ const CategoriesManagemenet = () => {
                                 Close
                             </button>}
                         </div>
+
                     </form>
+
                 ) : (
-                    <button onClick={toggleFormHandler} className={classes.addButton}>Add</button>
-                )}
+                    <div>
+                        <button onClick={toggleFormHandler} className={classes.addButton}>Add</button>
+                    </div>
+                )
+                }
             </div>
-            <CategoriesManagemenetList />
+            <CategoriesManagementList/>
         </Fragment>
     );
 };
 
-export default CategoriesManagemenet;
+export default CategoriesManagement;

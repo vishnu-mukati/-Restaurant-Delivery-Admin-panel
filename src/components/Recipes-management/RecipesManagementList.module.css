@@ -1,4 +1,3 @@
-
 .listItem {
   display: flex;
   flex-direction: column; /* Default to column for small screens */
