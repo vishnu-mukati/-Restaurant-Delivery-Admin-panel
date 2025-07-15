@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/AuthSlice";
 import CategoriesManagement from "../Categories-management/CategoriesManagement";
-import RecipesManagement from "../Recipes-management/_TempFix";
+import RecipesManagement from "../Recipes-management/RecipeManagement";
 import classes from './Welcome.module.css';
 import Orders from "../page/Orders";
 
