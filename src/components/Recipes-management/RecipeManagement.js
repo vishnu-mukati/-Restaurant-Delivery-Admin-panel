@@ -200,4 +200,4 @@ const RecipesManagement = () => {
     );
 };
 
-export default RecipesManagemenet;
+export default RecipesManagement;
