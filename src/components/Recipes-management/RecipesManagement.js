@@ -2,10 +2,10 @@ import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import classes from './RecipesManagement.module.css';
-import RecipesManagemenetList from "./RecipesManagementList";
+import RecipesManagementList from "./RecipesManagementList";
 import { RecipesActions } from "../../store/RecipesSlice";
 
-const RecipesManagemenet = () => {
+const RecipesManagement = () => {
     const dispatch = useDispatch();
     const [selectedImage, setSelectedImage] = useState(null);
     const [showForm, setShowForm] = useState(false);
@@ -79,7 +79,7 @@ const RecipesManagemenet = () => {
         };
         try {
             if (editRecipes) {
-                const response =   await axios.put(`https://restaurant-admin-panel-7f6af-default-rtdb.firebaseio.com/Recipeslist/${editRecipes.id}.json`,newRecipe);
+              await axios.put(`https://restaurant-admin-panel-7f6af-default-rtdb.firebaseio.com/Recipeslist/${editRecipes.id}.json`,newRecipe);
                
                     dispatch(RecipesActions.updateRecipes({ id: editRecipes.id, ...newRecipe }));
                 
@@ -195,7 +195,7 @@ const RecipesManagemenet = () => {
                     <button onClick={toggleFormHandler} className={classes.addButton}>Add</button>
                 )}
             </div>
-            <RecipesManagemenetList />
+            <RecipesManagementList />
         </Fragment>
     );
 };

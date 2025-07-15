@@ -1,4 +1,4 @@
-import { Provider, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
 import AuthForm from "./components/auth/AuthForm";
 import ChangePassword from "./components/page/ChangePassword";

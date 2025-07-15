@@ -71,7 +71,7 @@ const CategoriesManagement = () => {
 
          try {
             if (editCategories) {
-                const response =   await axios.put(`https://restaurant-admin-panel-7f6af-default-rtdb.firebaseio.com/Categorieslist/${editCategories.id}.json`,newCetogories);
+                  await axios.put(`https://restaurant-admin-panel-7f6af-default-rtdb.firebaseio.com/Categorieslist/${editCategories.id}.json`,newCetogories);
                
                     dispatch(CategoriesActions.updateCategories({ id: editCategories.id, ...newCetogories }));
                 

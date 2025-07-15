@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/AuthSlice";
 import CategoriesManagement from "../Categories-management/CategoriesManagement";
-import RecipesManagemenet from "../Recipes-management/RecipesManagement";
+import RecipesManagement from "../Recipes-management/RecipesManagement";
 import classes from './Welcome.module.css';
 import Orders from "../page/Orders";
 
@@ -65,7 +65,7 @@ const CreateRecipes = () => {
 
                 {currentPage === 'recipes' && (
                     <div className={classes.panelContent}>
-                        <RecipesManagemenet
+                        <RecipesManagement
                             closeRecipesManagementPage={() => setCurrentPage(false)}
                         />
                     </div>

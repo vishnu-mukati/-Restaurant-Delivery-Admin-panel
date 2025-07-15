@@ -48,7 +48,7 @@ const RecipesManagementList = () => {
 
     async function deleteDataHandler(id) {
         try {
-            const response = await axios.delete(`https://restaurant-admin-panel-7f6af-default-rtdb.firebaseio.com/Recipeslist/${id}.json`)
+             await axios.delete(`https://restaurant-admin-panel-7f6af-default-rtdb.firebaseio.com/Recipeslist/${id}.json`)
             dispatch(RecipesActions.deleteRecipesData({ id }))
         } catch (err) {
             alert(err.message);

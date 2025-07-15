@@ -8,6 +8,7 @@ const CategoriesManagementList = () =>{
     const dispatch = useDispatch();
     const CategoriesData = useSelector(state=>state.Categories.Categories);
     const dataLoaded = useSelector(state=>state.Categories.dataLoaded);
+
       useEffect(() => {
         if(!dataLoaded)
             getData();  
@@ -42,10 +43,9 @@ const CategoriesManagementList = () =>{
                 console.log(err.message);
             }
         }
-    
        async function deleteDataHandler(id) {
         try {
-            const response = await axios.delete(`https://restaurant-admin-panel-7f6af-default-rtdb.firebaseio.com/Categorieslist/${id}.json`)
+            await axios.delete(`https://restaurant-admin-panel-7f6af-default-rtdb.firebaseio.com/Categorieslist/${id}.json`)
             dispatch(CategoriesActions.deleteCategoriesData({ id }))
         } catch (err) {
             alert(err.message);
@@ -58,7 +58,6 @@ const CategoriesManagementList = () =>{
                         <p>No Recipes available.</p>
                     ) : (
                         CategoriesData.map((item) => (
-                            console.log(item),
                             <div key={item.id} className={classes.listItem}>
                                 <img src={item.image} alt={item.name} />
                                 <div className={classes.itemDetails}>
