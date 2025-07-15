@@ -53,7 +53,7 @@ const RecipesManagementList = () => {
         } catch (err) {
             alert(err.message);
         }
-    }
+    }console.log(RecipesData);
     return (
         <div className={classes.listContainer}>
             <h3>Recipe List</h3>
@@ -67,6 +67,7 @@ const RecipesManagementList = () => {
                             <p>{item.name}</p>
                             <p>Category: {item.recipeName}</p>
                             <p>Price: {item.price}</p>
+                            <p>Ingredients : {item.ingredients}</p>
                         </div>
                         <div className={classes.actionButtons}>
                             <button onClick={() => editDataHandler(item)} className={classes.editButton}>Edit</button>
