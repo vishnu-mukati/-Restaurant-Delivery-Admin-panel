@@ -1,0 +1,90 @@
+
+.listItem {
+  display: flex;
+  flex-direction: column; /* Default to column for small screens */
+  align-items: flex-start;
+  background: #ffffff;
+  color: #1e2a78;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+  box-shadow: 0 4px 8px rgba(0, 209, 178, 0.6);
+  transition: transform 0.3s ease;
+  gap: 0.8rem;
+  word-break: break-word;
+}
+
+.listItem:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 209, 178, 0.8);
+}
+
+.listItem img {
+  width: 190px;          /* Bigger size */
+  height: 170px;         /* Same as width to keep it square */
+  object-fit: cover;
+  border-radius: 10px;  /* Slightly rounded square, remove or set to 0 for sharp corners */
+  margin-right: 1rem;
+  border: 2px solid #00d1b2;
+}
+
+.itemDetails {
+  flex-grow: 1;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.itemDetails p {
+  margin: 0.2rem 0;
+  font-size: 0.9rem;
+  font-weight: bold;
+  word-break: break-word;
+}
+
+.actionButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.editButton,
+.deleteButton {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  font-size: 0.9rem;
+  flex: 1 1 45%; /* Allow buttons to shrink */
+  min-width: 100px;
+}
+
+/* Tablet & up */
+@media (min-width: 600px) {
+  .listItem {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .itemDetails {
+    padding: 0 1rem;
+  }
+
+
+  .actionButtons {
+    justify-content: flex-end;
+    flex: 0 0 auto;
+    width: auto;
+  }
+
+  .editButton,
+  .deleteButton {
+    flex: none;
+    min-width: unset;
+  }
+}
